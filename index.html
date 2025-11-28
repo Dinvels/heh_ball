@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="ru"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Поймай мячик! - Кис!&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #1a1a2e;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>min-height: 100vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: Arial, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#gameContainer {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: relative;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 2px solid #fff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>overflow: hidden;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>canvas {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#ui {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-shadow: 2px 2px 4px rgba(0,0,0,0.5);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#gameOver {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.8);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flex-direction: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 18px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #4CAF50;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #45a049;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="gameContainer"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;canvas id="gameCanvas" width="800" height="600"&gt;&lt;/canvas&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="ui"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;Счет: &lt;span id="score"&gt;0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;Уровень: &lt;span id="level"&gt;1&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;Скорость: &lt;span id="speed"&gt;4.0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;Отскоки: &lt;span id="bounces"&gt;0/24&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;Мячи: &lt;span id="balls"&gt;1&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="gameOver"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h2&gt;ИГРА ОКОНЧЕНА, КИС!&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;Ваш счет: &lt;span id="finalScore"&gt;0&lt;/span&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;Достигнут уровень: &lt;span id="finalLevel"&gt;1&lt;/span&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button onclick="restartGame()"&gt;Играть снова, кис!&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button onclick="closeGame()"&gt;Выйти&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Конфигурация игры</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const config = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>WIDTH: 800,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>HEIGHT: 600,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>LEVEL_SETTINGS: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>1: { speed: 4.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>2: { speed: 6.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>3: { speed: 8.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>4: { speed: 10.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>5: { speed: 12.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>6: { speed: 14.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>7: { speed: 16.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>8: { speed: 18.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>9: { speed: 20.0, bouncesNeeded: 24 },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>10: { speed: 22.0, bouncesNeeded: 9999 }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>POWERUP_CHANCE: 0.15,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>POWERUP_TYPES: ["expand", "shrink", "slow", "fast", "multi"]</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Игровые переменные</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let canvas, ctx;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let platform, balls, powerups, activePowerups;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let score, currentLevel, bouncesInCurrentLevel;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let gameOver = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let lastTime = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let backgroundImages = {};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Цвета</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const COLORS = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>platform: '#FFB6C1',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>platformShadow: '#DB7093',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>platformHighlight: '#FFFFFF',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ball: '#ADD8E6',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ballHighlight: '#E0FFFF',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text: '#FFFFFF',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>powerups: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>expand: '#32CD32',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>shrink: '#DC143C',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>slow: '#1E90FF',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>fast: '#FFD700',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>multi: '#9400D3'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Инициализация игры</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function init() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>canvas = document.getElementById('gameCanvas');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx = canvas.getContext('2d');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Загрузка изображений</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>loadImages();</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Инициализация игровых объектов</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>resetGame();</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Запуск игрового цикла</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>requestAnimationFrame(gameLoop);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Обработка клавиш</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>window.addEventListener('keydown', handleKeyPress);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function loadImages() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Здесь можно загрузить фоновые изображения</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Для простоты используем градиенты</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>backgroundImages[1] = createGradient('#6495ED', '#4169E1');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>backgroundImages[2] = createGradient('#6495ED', '#4169E1');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>backgroundImages[3] = createGradient('#FF6347', '#DC143C');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 4; i &lt;= 10; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>backgroundImages[i] = createGradient('#FF6347', '#DC143C');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function createGradient(color1, color2) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const gradient = ctx.createLinearGradient(0, 0, config.WIDTH, config.HEIGHT);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gradient.addColorStop(0, color1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gradient.addColorStop(1, color2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return gradient;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function resetGame() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>platform = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>width: 100,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>height: 20,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>x: config.WIDTH / 2 - 50,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>y: config.HEIGHT - 30,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>speed: 8,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>color: COLORS.platform</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>balls = [{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>x: config.WIDTH / 2,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>y: config.HEIGHT / 2,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>radius: 15,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>dx: 4,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>dy: -4,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>color: COLORS.ball</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>powerups = [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>activePowerups = {};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>score = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>currentLevel = 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>bouncesInCurrentLevel = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameOver = false;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function gameLoop(timestamp) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!lastTime) lastTime = timestamp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const deltaTime = timestamp - lastTime;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>lastTime = timestamp;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!gameOver) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>update(deltaTime);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>render();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>requestAnimationFrame(gameLoop);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function update(deltaTime) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Обновление бонусов</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updatePowerups();</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Обновление мячей</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>balls.forEach((ball, index) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateBall(ball, index);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Удаление потерянных мячей</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>balls = balls.filter(ball =&gt; ball.y - ball.radius &lt;= config.HEIGHT);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Проверка окончания игры</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (balls.length === 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>endGame();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updateBall(ball, ballIndex) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Движение мяча</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ball.x += ball.dx;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ball.y += ball.dy;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Отскок от стен</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (ball.x - ball.radius &lt;= 0 || ball.x + ball.radius &gt;= config.WIDTH) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.dx = -ball.dx;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.x = Math.max(ball.radius, Math.min(config.WIDTH - ball.radius, ball.x));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (ball.y - ball.radius &lt;= 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.dy = -ball.dy;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.y = ball.radius;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Проверка столкновения с платформой</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (ball.y + ball.radius &gt;= platform.y &amp;&amp;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.y - ball.radius &lt;= platform.y + platform.height &amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.x &gt;= platform.x &amp;&amp;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ball.x &lt;= platform.x + platform.width) {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>handlePlatformCollision(ball);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function handlePlatformCollision(ball) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Отскок от платформы</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const relativeIntersectX = (platform.x + platform.width / 2) - ball.x;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const normalizedX = relativeIntersectX / (platform.width / 2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bounceAngle = normalizedX * (Math.PI / 3);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const currentSpeed = config.LEVEL_SETTINGS[currentLevel].speed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ball.dx = -currentSpeed * Math.sin(bounceAngle);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ball.dy = -Math.abs(currentSpeed * Math.cos(bounceAngle));</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Обновление счета и уровня</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>score++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>bouncesInCurrentLevel++;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (bouncesInCurrentLevel &gt;= config.LEVEL_SETTINGS[currentLevel].bouncesNeeded) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (currentLevel &lt; Object.keys(config.LEVEL_SETTINGS).length) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>currentLevel++;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>bouncesInCurrentLevel = 0;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>// Обновление скорости всех мячей</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>balls.forEach(b =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const speed = Math.sqrt(b.dx * b.dx + b.dy * b.dy);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const newSpeed = config.LEVEL_SETTINGS[currentLevel].speed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>b.dx = (b.dx / speed) * newSpeed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>b.dy = (b.dy / speed) * newSpeed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Увеличение платформы</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>platform.width = 100 * (1 + 0.001 * score);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (platform.x + platform.width &gt; config.WIDTH) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>platform.x = config.WIDTH - platform.width;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Создание бонусов</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (Math.random() &lt; config.POWERUP_CHANCE &amp;&amp; powerups.length &lt; 3) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>createPowerup();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateUI();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function createPowerup() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const type = config.POWERUP_TYPES[Math.floor(Math.random() * config.POWERUP_TYPES.length)];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>powerups.push({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>x: Math.random() * (config.WIDTH - 40) + 20,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>y: 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>type: type,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>speed: 2,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>size: 20</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updatePowerups() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Движение бонусов</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>powerups.forEach((powerup, index) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>powerup.y += powerup.speed;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Проверка столкновения с платформой</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (powerup.y + powerup.size &gt;= platform.y &amp;&amp;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>powerup.y &lt;= platform.y + platform.height &amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>powerup.x &gt;= platform.x &amp;&amp;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>powerup.x &lt;= platform.x + platform.width) {</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>activatePowerup(powerup.type);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>powerups.splice(index, 1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Удаление вышедших за экран</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (powerup.y &gt; config.HEIGHT) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>powerups.splice(index, 1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Обновление активных бонусов</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const now = Date.now();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>Object.keys(activePowerups).forEach(type =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (now &gt; activePowerups[type]) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>deactivatePowerup(type);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>delete activePowerups[type];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function activatePowerup(type) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const duration = 6000; // 6 секунд</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>activePowerups[type] = Date.now() + duration;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>switch(type) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'expand':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>platform.width *= 1.5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'shrink':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>platform.width = Math.max(50, platform.width * 0.7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'slow':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>balls.forEach(ball =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>ball.dx *= 0.7;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>ball.dy *= 0.7;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'fast':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>balls.forEach(ball =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>ball.dx *= 1.3;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>ball.dy *= 1.3;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'multi':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (balls.length &lt; 5) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const newBall = {...balls[0]};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>newBall.dx = -newBall.dx;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>balls.push(newBall);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function deactivatePowerup(type) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>switch(type) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'expand':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'shrink':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>platform.width = 100 * (1 + 0.001 * score);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'slow':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'fast':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>// Скорость вернется к нормальной при следующем отскоке</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function render() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Очистка canvas</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = backgroundImages[currentLevel] || backgroundImages[1];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillRect(0, 0, config.WIDTH, config.HEIGHT);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Отрисовка платформы</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>drawPlatform();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Отрисовка мячей</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>balls.forEach(ball =&gt; drawBall(ball));</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Отрисовка бонусов</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>powerups.forEach(powerup =&gt; drawPowerup(powerup));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function drawPlatform() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Основная часть</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = platform.color;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillRect(platform.x, platform.y, platform.width, platform.height);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Тень</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = COLORS.platformShadow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillRect(platform.x, platform.y + platform.height - 5, platform.width, 5);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Блик</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = COLORS.platformHighlight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillRect(platform.x, platform.y, platform.width, 3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function drawBall(ball) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Основной шар</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = ball.color;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.beginPath();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fill();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Блик</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = COLORS.ballHighlight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.beginPath();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.arc(ball.x - ball.radius/3, ball.y - ball.radius/3, ball.radius/2, 0, Math.PI * 2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fill();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function drawPowerup(powerup) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = COLORS.powerups[powerup.type] || '#FFFFFF';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillRect(powerup.x, powerup.y, powerup.size, powerup.size);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillStyle = '#FFFFFF';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.font = '20px Arial';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.textAlign = 'center';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.textBaseline = 'middle';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const symbols = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>expand: '+', shrink: '-', slow: '↓', fast: '↑', multi: 'x'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ctx.fillText(symbols[powerup.type] || '?',<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>powerup.x + powerup.size/2,<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>powerup.y + powerup.size/2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function handleKeyPress(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gameOver) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>switch(e.key) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'ArrowLeft':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>platform.x = Math.max(0, platform.x - platform.speed);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>case 'ArrowRight':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>platform.x = Math.min(config.WIDTH - platform.width, platform.x + platform.speed);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updateUI() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('score').textContent = score;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('level').textContent = currentLevel;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('speed').textContent = config.LEVEL_SETTINGS[currentLevel].speed.toFixed(1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('bounces').textContent = `${bouncesInCurrentLevel}/${config.LEVEL_SETTINGS[currentLevel].bouncesNeeded}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('balls').textContent = balls.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function endGame() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gameOver = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('finalScore').textContent = score;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('finalLevel').textContent = currentLevel;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('gameOver').style.display = 'flex';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function restartGame() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('gameOver').style.display = 'none';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>resetGame();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function closeGame() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Закрытие Web App в Telegram</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (window.Telegram &amp;&amp; Telegram.WebApp) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>Telegram.WebApp.close();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Инициализация при загрузке</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>window.onload = init;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Инициализация Telegram Web App</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (window.Telegram &amp;&amp; Telegram.WebApp) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>Telegram.WebApp.ready();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>Telegram.WebApp.expand();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
